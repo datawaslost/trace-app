@@ -65,8 +65,28 @@ angular.module('trace.controllers', [])
     
     $scope.addPhoto = function() {
 
+
 		$scope.imagePopover.hide();
-	    $scope.imageData = "img/ionic.png";
+
+		if (window.imagePicker) {
+			window.imagePicker.getPictures(
+			    function(results) {
+					// save chosen photos
+			    	$scope.uploaded_image = results[0];
+			    	$scope.imageData = $scope.uploaded_image;
+			    }, function (error) {
+			        console.log('Error: ' + error);
+			    }, {
+					maximumImagesCount: 1,
+					width: 640,
+					quality: 60
+				}
+			);
+		} else {
+			console.log("no plugin found");
+			$scope.imageData = "img/ionic.png";
+		}
+
 	    $scope.imageObj = new Image();
 	    $scope.imageObj.src = $scope.imageData;
 	

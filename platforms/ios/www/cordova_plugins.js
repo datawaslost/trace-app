@@ -27,6 +27,13 @@ module.exports = [
         "clobbers": [
             "device"
         ]
+    },
+    {
+        "file": "plugins/com.synconset.imagepicker/www/imagepicker.js",
+        "id": "com.synconset.imagepicker.ImagePicker",
+        "clobbers": [
+            "plugins.imagePicker"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -34,7 +41,8 @@ module.exports.metadata =
 {
     "com.ionic.keyboard": "1.0.4",
     "org.apache.cordova.console": "0.2.13",
-    "org.apache.cordova.device": "0.3.0"
+    "org.apache.cordova.device": "0.3.0",
+    "com.synconset.imagepicker": "1.0.6"
 }
 // BOTTOM OF METADATA
 });

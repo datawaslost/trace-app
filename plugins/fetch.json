@@ -16,5 +16,12 @@
             "type": "registry",
             "id": "com.ionic.keyboard"
         }
+    },
+    "com.synconset.imagepicker": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/wymsee/cordova-imagePicker.git",
+            "subdir": "."
+        }
     }
 }
