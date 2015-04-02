@@ -13,8 +13,8 @@ Kinetic.PinchLayer = function(config) {
     }
 	*/
 	
-    self.minScale = config.minScale || 1;
-    self.maxScale = config.maxScale || 4;
+    self.minScale = config.minScale || .1;
+    self.maxScale = config.maxScale || 5;
     self.maxSpeed = config.maxSpeed || 10;
     self.durationCoeff = config.durationCoeff || 0.05;
     
@@ -88,10 +88,11 @@ Kinetic.PinchLayer.prototype.layerTouchMove = function(event) {
 			// adjust position after scale			
 			var x = (self.layerPosition.x * scale) - self.touchPosition.x;
 			var y = (self.layerPosition.y * scale) - self.touchPosition.y;
-			var pos = self.checkBounds({ x: -x, y: -y });
+			// var pos = self.checkBounds({ x: -x, y: -y });
+			var pos = self.checkBounds({ x: x, y: y });
 			// var pos = { x: -x, y: -y };
-			self.x(pos.x);
-			self.y(pos.y);
+			// self.x(pos.x);
+			// self.y(pos.y);
 			self.getParent().draw();
     	}
 	}

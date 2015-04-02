@@ -95,6 +95,10 @@ angular.module('trace.controllers', [])
 	            height: image.getHeight()
 	        });
 	
+	        // enable pinch-zoom
+	        if ($scope.group) $scope.group.dStage.addEventListener("touchmove", $scope.group.layerTouchMove, true);
+	        if ($scope.group) $scope.group.dStage.addEventListener("touchend", $scope.group.layerTouchEnd, true);
+
 	        // add image to group, group to canvas
 	        $scope.group.add(image);
 	        $scope.stage.add(layer);
