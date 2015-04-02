@@ -13,19 +13,19 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
-                            "count": 2
-                        },
-                        {
-                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"ImagePicker\"><param name=\"ios-package\" value=\"SOSPicker\" /></feature>",
                             "count": 1
                         },
                         {
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
+                        },
+                        {
                             "xml": "<feature name=\"Brightness\"><param name=\"ios-package\" value=\"Brightness\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -47,19 +47,16 @@
         "com.ionic.keyboard": {
             "PACKAGE_NAME": "com.ionicframework.traceapp793000"
         },
-        "org.apache.cordova.console": {
-            "PACKAGE_NAME": "com.ionicframework.traceapp793000"
-        },
-        "org.apache.cordova.device": {
-            "PACKAGE_NAME": "com.ionicframework.traceapp793000"
-        },
         "com.synconset.imagepicker": {
+            "PACKAGE_NAME": "com.ionicframework.traceapp793000"
+        },
+        "cordova-plugin-console": {
             "PACKAGE_NAME": "com.ionicframework.traceapp793000"
         },
         "cordova.plugin.Brightness": {
             "PACKAGE_NAME": "com.ionicframework.traceapp793000"
         },
-        "cordova-plugin-console": {
+        "org.apache.cordova.device": {
             "PACKAGE_NAME": "com.ionicframework.traceapp793000"
         }
     },

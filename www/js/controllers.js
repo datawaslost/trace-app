@@ -4,7 +4,7 @@ angular.module('trace.controllers', [])
 
 })
 
-.controller('TraceCtrl', function($scope, $stateParams, $window, $ionicPopover) {
+.controller('TraceCtrl', function($scope, $stateParams, $window, $ionicPopover, $cordovaBrightness) {
 
 	$ionicPopover.fromTemplateUrl('image-popover.html', {
 		scope: $scope
@@ -51,14 +51,16 @@ angular.module('trace.controllers', [])
     function fail(status) {
         console.log('Error: ' + status);
     }
+
+	// brightness plugin not working
+	/*
+	if ($window.cordova) $scope.global.brightness = $cordovaBrightness.get()
 	
-	console.log(window.Brightness);
-	
-	$scope.global.brightness = 10; // brightness.getBrightness( win, fail)
-	
-    $scope.$watch('global.brightness', function() {        
-		window.Brightness.brightness.setBrightness(global.brightness, win, fail);
+    $scope.$watch('global.brightness', function() {
+		if ($window.cordova) $cordovaBrightness.set($scope.global.brightness);
     });
+    */
+
 
 	$scope.grid = {}
 	
@@ -77,7 +79,6 @@ angular.module('trace.controllers', [])
 		'opacity': $scope.grid.opacity,
 	};
 	
-
     $scope.$watch('grid.size', function() {        
 		$scope.grid.gridStyle["min-height"] = $scope.grid.gridStyle["min-width"] = $scope.grid.size + "px";
     });
@@ -95,9 +96,25 @@ angular.module('trace.controllers', [])
     $scope.$watch('grid.lightness', hsl);    
 	hsl();
 
+	$scope.image = {}
+	$scope.image.grayscale = false;
 
+    $scope.$watch('image.brightness', function() {       
+    	if ($scope.imageKinetic) $scope.imageKinetic.brightness($scope.image.brightness);
+		$scope.stage.draw();	
+    });
 
-
+    $scope.$watch('image.grayscale', function() {
+	    console.log("yooo");
+    	if ($scope.imageKinetic) {
+	    	if ($scope.image.grayscale) {
+				$scope.imageKinetic.filters([Kinetic.Filters.Brighten, Kinetic.Filters.Grayscale]);
+			} else {
+				$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
+			}
+		} 
+		$scope.stage.draw();	
+    });
 
 	var svg = d3.select("#grid")
 	var amount = 8192;
@@ -144,16 +161,19 @@ angular.module('trace.controllers', [])
 			);
 		} else {
 			console.log("no plugin found, loading default image");
-			$scope.imageObj.src = "img/ionic.png";
+			// $scope.imageObj.src = "img/ionic.png";
+			$scope.imageObj.src = "http://www.leighcox.com/images/design/harmony_full.png";
 		}
 
 	    // when we get the photo data from camera
 	    $scope.imageObj.onload = function() {
 	    
 	        // create new image object for photo
-	        var image = new Kinetic.Image({
+	        $scope.imageKinetic = new Kinetic.Image({
 	            id: 'photo',
 	            image : $scope.imageObj,
+	            // filter: [ Kinetic.Filters.Brighten ],
+				// filterBrightness: -100
 			});
 	
 	        // if there's an old template layer
@@ -163,8 +183,8 @@ angular.module('trace.controllers', [])
             } else {
 		        // create new photo layer
 		        $scope.layer = new Kinetic.Layer({
-		            width: image.getWidth(),
-		            height: image.getHeight()
+		            width: $scope.imageKinetic.getWidth(),
+		            height: $scope.imageKinetic.getHeight()
 		        });
             }
             	
@@ -174,8 +194,8 @@ angular.module('trace.controllers', [])
 	            container: $scope.layer,
 	            id: 'group',
 	            draggable: true,
-	            width: image.getWidth(),
-	            height: image.getHeight(),
+	            width: $scope.imageKinetic.getWidth(),
+	            height: $scope.imageKinetic.getHeight(),
 	            x: 0,
 	            y: 0,
 	        });
@@ -184,9 +204,23 @@ angular.module('trace.controllers', [])
 	        if ($scope.group) $scope.group.dStage.addEventListener("touchmove", $scope.group.layerTouchMove, true);
 	        if ($scope.group) $scope.group.dStage.addEventListener("touchend", $scope.group.layerTouchEnd, true);
 
-	        $scope.group.add(image);
+	        $scope.group.add($scope.imageKinetic);
 	        $scope.stage.add($scope.layer);
-	        $scope.stage.draw();	
+			$scope.imageKinetic.cache();
+			$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
+			$scope.imageKinetic.brightness(0);
+			// $scope.imageKinetic.setFilter(Kinetic.Filters.RGB);
+			// $scope.imageKinetic.blue(0);
+			// $scope.imageKinetic.red(0);
+			// $scope.imageKinetic.green(0);
+
+
+			$scope.stage.draw();	
+
+
+	        // $scope.layer.batchDraw(); 
+      
+
 	    };
     };
 

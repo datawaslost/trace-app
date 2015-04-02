@@ -16,4 +16,8 @@
   <feature name="StatusBar">
     <param name="ios-package" value="CDVStatusBar" onload="true"/>
   </feature>
+
+  <feature name="Brightness">
+    <param name="ios-package" value="Brightness" onload="true"/>
+  </feature>
 </widget>
