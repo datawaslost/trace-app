@@ -32,18 +32,21 @@ angular.module('trace.controllers', [])
 		$scope.imagePopover.remove();
 	});
 
-	/*
-	var svg = d3.select("#grid")
-	var amount = 5000;
 
-	d3.range(amount).forEach(function(j) {
-		var square = svg
-		.append("div")
-		.attr("class", "square")
-	})
-	*/
+	$scope.addGrid = function() {
+
+		$scope.gridPopover.hide();
+		var svg = d3.select("#grid")
+		var amount = 5000;
+	
+		d3.range(amount).forEach(function(j) {
+			var square = svg
+			.append("div")
+			.attr("class", "square")
+		})
+	
+	}
 		
-	// $scope.device_width = Number($( $window ).width());
 	$scope.device_width = $window.innerWidth;
 	$scope.device_scale = $scope.device_width/640;
 
@@ -61,7 +64,8 @@ angular.module('trace.controllers', [])
     };
     
     $scope.addPhoto = function() {
-    
+
+		$scope.imagePopover.hide();
 	    $scope.imageData = "img/ionic.png";
 	    $scope.imageObj = new Image();
 	    $scope.imageObj.src = $scope.imageData;
@@ -73,8 +77,6 @@ angular.module('trace.controllers', [])
 	        var image = new Kinetic.Image({
 	            id: 'photo',
 	            image : $scope.imageObj,
-	            // width: 640,
-	            // height: 960
 			});
 	
 	        // create new photo layer
