@@ -44,6 +44,22 @@ angular.module('trace.controllers', [])
 	});
 		
 	$scope.global = {}
+	
+    function win(status) {
+        console.log('Message: ' + status);
+    }
+    function fail(status) {
+        console.log('Error: ' + status);
+    }
+	
+	console.log(window.Brightness);
+	
+	$scope.global.brightness = 10; // brightness.getBrightness( win, fail)
+	
+    $scope.$watch('global.brightness', function() {        
+		window.Brightness.brightness.setBrightness(global.brightness, win, fail);
+    });
+
 	$scope.grid = {}
 	
 	$scope.grid.showGrid = true;

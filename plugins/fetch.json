@@ -30,5 +30,12 @@
             "url": "https://github.com/fiscal-cliff/phonegap-plugin-brightness.git",
             "subdir": "."
         }
+    },
+    "cordova-plugin-console": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/apache/cordova-plugin-console.git",
+            "subdir": "."
+        }
     }
 }

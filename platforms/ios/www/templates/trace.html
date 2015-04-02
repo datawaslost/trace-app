@@ -6,6 +6,8 @@
 
 		<button class="button button-icon button-clear ion-images" ng-click="openImagePopover($event)"></button>
 
+		<button class="button button-icon button-clear ion-ipad" ng-click="openGlobalPopover($event)"></button>
+
 	</ion-nav-buttons>
 
 	<ion-content has-bouncing="false" scroll="false" class="trace-container">
@@ -23,7 +25,7 @@
 
 	<ion-popover-view>
 			
-		<ion-content>
+		<ion-content scroll="false">
 		
 			<ion-list>
 			
@@ -40,11 +42,38 @@
 </script>
 
 
-<script id="grid-popover.html" type="text/ng-template">
+<script id="global-popover.html" type="text/ng-template">
 
 	<ion-popover-view>
 			
-		<ion-content>
+		<ion-content scroll="false">
+		
+			<ion-list>
+
+				<ion-toggle ng-model="global.screen">
+					Keep Screen On		
+		        </ion-toggle>
+
+				<ion-item class="item range range-positive">
+					<i class="icon ion-ios-sunny"></i>
+					<input type="range" name="brightness" min="0" max="100" ng-model="global.brightness">
+				</ion-item>
+				
+				
+			</ion-list>
+		
+		</ion-content>
+		
+	</ion-popover-view>
+	
+</script>
+
+
+<script id="grid-popover.html" type="text/ng-template">
+
+	<ion-popover-view style="height: 400px">
+			
+		<ion-content scroll="false">
 		
 			<ion-list>
 				
@@ -54,27 +83,27 @@
 
 				<ion-item class="item range range-positive">
 					<i class="icon ion-grid"></i>
-					<input type="range" name="volume" min="16" max="320" ng-model="grid.size">
+					<input type="range" name="size" min="16" max="320" ng-model="grid.size">
 				</ion-item>
 				
 				<ion-item class="item range range-positive">
 					<i class="icon ion-aperture"></i>
-					<input type="range" name="volume" min="0" max="100" ng-model="grid.opacity">
+					<input type="range" name="opacity" min="0" max="100" ng-model="grid.opacity">
 				</ion-item>
 				
 				<ion-item class="item range range-positive">
 					<i class="icon ion-android-color-palette"></i>
-					<input type="range" name="volume" min="0" max="100" ng-model="grid.hue">
+					<input type="range" name="hue" min="0" max="100" ng-model="grid.hue">
 				</ion-item>
 				
 				<ion-item class="item range range-positive">
 					<i class="icon ion-ios-color-wand"></i>
-					<input type="range" name="volume" min="0" max="100" ng-model="grid.saturation">
+					<input type="range" name="saturation" min="0" max="100" ng-model="grid.saturation">
 				</ion-item>
 				
 				<ion-item class="item range range-positive">
 					<i class="icon ion-ios-sunny"></i>
-					<input type="range" name="volume" min="0" max="100" ng-model="grid.lightness">
+					<input type="range" name="lightness" min="0" max="100" ng-model="grid.lightness">
 				</ion-item>
 			  
 			</ion-list>

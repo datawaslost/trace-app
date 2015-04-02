@@ -56,6 +56,7 @@
 		22B70D2D2E864C3BA9F1C9EB /* Overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86A8BF07B74A68953CBE40 /* Overlay@2x.png */; };
 		445EC4F971B046679EC4465E /* Brightness.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C2FD73A0DE45EAA89D200A /* Brightness.m */; };
 		E77A150F191640E1A1B1AFC0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AD5A3ED3114DCBA3620AA5 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		8550FA6771594E75955ECCA9 /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 23E51C6040464B4BBC0B52A4 /* CDVLogger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,8 @@
 		85C2FD73A0DE45EAA89D200A /* Brightness.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Brightness.m"; path = "cordova.plugin.Brightness/Brightness.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		1DDBE78BF34E4DEB97F0B0BB /* Brightness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Brightness.h"; path = "cordova.plugin.Brightness/Brightness.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		11AD5A3ED3114DCBA3620AA5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "UIKit.framework"; path = "System/Library/Frameworks/UIKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		23E51C6040464B4BBC0B52A4 /* CDVLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVLogger.m"; path = "cordova-plugin-console/CDVLogger.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		E626CCDF83344AC3BACFAB55 /* CDVLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLogger.h"; path = "cordova-plugin-console/CDVLogger.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +281,8 @@
 				C0EAE0B858AD4414A03098C8 /* ELCImagePickerController.h */,
 				85C2FD73A0DE45EAA89D200A /* Brightness.m */,
 				1DDBE78BF34E4DEB97F0B0BB /* Brightness.h */,
+				23E51C6040464B4BBC0B52A4 /* CDVLogger.m */,
+				E626CCDF83344AC3BACFAB55 /* CDVLogger.h */,
 			);
 			name = Plugins;
 			path = "trace-app/Plugins";
@@ -478,6 +483,7 @@
 				4340950A0A6244C694BE2C65 /* ELCAssetTablePicker.m in Sources */,
 				88858679162848589E1DA613 /* ELCImagePickerController.m in Sources */,
 				445EC4F971B046679EC4465E /* Brightness.m in Sources */,
+				8550FA6771594E75955ECCA9 /* CDVLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

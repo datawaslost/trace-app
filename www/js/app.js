@@ -17,6 +17,9 @@ angular.module('trace', ['ionic', 'trace.controllers'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+    
+    // window.brightness = cordova.require("cordova.plugin.Brightness.Brightness");
+
   });
 })
 

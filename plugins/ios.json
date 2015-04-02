@@ -14,7 +14,7 @@
                         },
                         {
                             "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
-                            "count": 1
+                            "count": 2
                         },
                         {
                             "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
@@ -57,6 +57,9 @@
             "PACKAGE_NAME": "com.ionicframework.traceapp793000"
         },
         "cordova.plugin.Brightness": {
+            "PACKAGE_NAME": "com.ionicframework.traceapp793000"
+        },
+        "cordova-plugin-console": {
             "PACKAGE_NAME": "com.ionicframework.traceapp793000"
         }
     },

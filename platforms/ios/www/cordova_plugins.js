@@ -41,6 +41,20 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.brightness"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-console/www/console-via-logger.js",
+        "id": "cordova-plugin-console.console",
+        "clobbers": [
+            "console"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-console/www/logger.js",
+        "id": "cordova-plugin-console.logger",
+        "clobbers": [
+            "cordova.logger"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -50,7 +64,8 @@ module.exports.metadata =
     "org.apache.cordova.console": "0.2.13",
     "org.apache.cordova.device": "0.3.0",
     "com.synconset.imagepicker": "1.0.6",
-    "cordova.plugin.Brightness": "0.1.0"
+    "cordova.plugin.Brightness": "0.1.0",
+    "cordova-plugin-console": "0.2.14-dev"
 }
 // BOTTOM OF METADATA
 });
