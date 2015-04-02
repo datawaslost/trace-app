@@ -8,7 +8,7 @@
 
 	</ion-nav-buttons>
 
-	<ion-content has-bouncing="false" scroll="false">
+	<ion-content has-bouncing="false" scroll="false" class="trace-container">
 	
 		<div id="grid" ng-show="grid.showGrid" ng-style="grid.gridStyle"></div>
 		
@@ -52,11 +52,30 @@
 					Show Grid			
 		        </ion-toggle>
 
-			  <div class="item range range-positive">
-			    <i class="icon ion-ios7-sunny-outline"></i>
-			    <input type="range" name="volume" min="0" max="100" value="50" ng-model="grid.opacity">
-			    <i class="icon ion-ios7-sunny"></i>
-			  </div>
+				<ion-item class="item range range-positive">
+					<i class="icon ion-grid"></i>
+					<input type="range" name="volume" min="16" max="320" ng-model="grid.size">
+				</ion-item>
+				
+				<ion-item class="item range range-positive">
+					<i class="icon ion-aperture"></i>
+					<input type="range" name="volume" min="0" max="100" ng-model="grid.opacity">
+				</ion-item>
+				
+				<ion-item class="item range range-positive">
+					<i class="icon ion-android-color-palette"></i>
+					<input type="range" name="volume" min="0" max="100" ng-model="grid.hue">
+				</ion-item>
+				
+				<ion-item class="item range range-positive">
+					<i class="icon ion-ios-color-wand"></i>
+					<input type="range" name="volume" min="0" max="100" ng-model="grid.saturation">
+				</ion-item>
+				
+				<ion-item class="item range range-positive">
+					<i class="icon ion-ios-sunny"></i>
+					<input type="range" name="volume" min="0" max="100" ng-model="grid.lightness">
+				</ion-item>
 			  
 			</ion-list>
 		

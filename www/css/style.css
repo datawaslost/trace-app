@@ -1,6 +1,10 @@
 
+.trace-container {
+	background-color: #000;	
+}	
+
 #grid {
-	width: 100%;
+	width: 125%;
 	height: 100%;
 	position: absolute;
 	z-index: 100;
