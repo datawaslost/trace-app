@@ -10,7 +10,7 @@
 
 	<ion-content has-bouncing="false" scroll="false">
 	
-		<div id="grid"></div>
+		<div id="grid" ng-show="grid.showGrid"></div>
 		
 		<div id="kcontainer"></div>
 		
@@ -47,10 +47,10 @@
 		<ion-content>
 		
 			<ion-list>
-			
-				<ion-item ng-click="addGrid()">
+				
+				<ion-toggle ng-model="grid.showGrid">
 					Show Grid			
-				</ion-item>
+		        </ion-toggle>
 				
 			</ion-list>
 		

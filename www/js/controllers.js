@@ -31,21 +31,17 @@ angular.module('trace.controllers', [])
 		$scope.gridPopover.remove();
 		$scope.imagePopover.remove();
 	});
+		
+	$scope.grid = {}
+	$scope.grid.showGrid = false;
+	var svg = d3.select("#grid")
+	var amount = 5000;
 
-
-	$scope.addGrid = function() {
-
-		$scope.gridPopover.hide();
-		var svg = d3.select("#grid")
-		var amount = 5000;
-	
-		d3.range(amount).forEach(function(j) {
-			var square = svg
-			.append("div")
-			.attr("class", "square")
-		})
-	
-	}
+	d3.range(amount).forEach(function(j) {
+		var square = svg
+		.append("div")
+		.attr("class", "square")
+	})
 		
 	$scope.device_width = $window.innerWidth;
 	$scope.device_scale = $scope.device_width/2560;
