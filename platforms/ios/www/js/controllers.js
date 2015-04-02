@@ -48,7 +48,8 @@ angular.module('trace.controllers', [])
 	}
 		
 	$scope.device_width = $window.innerWidth;
-	$scope.device_scale = $scope.device_width/640;
+	$scope.device_scale = $scope.device_width/2560;
+	$scope.imageObj = new Image();
 
     $scope.init = function() {
 
@@ -66,10 +67,25 @@ angular.module('trace.controllers', [])
     $scope.addPhoto = function() {
 
 		$scope.imagePopover.hide();
-	    $scope.imageData = "img/ionic.png";
-	    $scope.imageObj = new Image();
-	    $scope.imageObj.src = $scope.imageData;
-	
+
+		if (window.imagePicker) {
+			window.imagePicker.getPictures(
+			    function(results) {
+					// load chosen photo
+					$scope.imageObj.src = results[0];
+			    }, function (error) {
+			        console.log('Error: ' + error);
+			    }, {
+					maximumImagesCount: 1,
+					width: 2560,
+					quality: 100
+				}
+			);
+		} else {
+			console.log("no plugin found, loading default image");
+			$scope.imageObj.src = "img/ionic.png";
+		}
+
 	    // when we get the photo data from camera
 	    $scope.imageObj.onload = function() {
 	    
@@ -79,29 +95,36 @@ angular.module('trace.controllers', [])
 	            image : $scope.imageObj,
 			});
 	
-	        // create new photo layer
-	        var layer = new Kinetic.Layer({
-	            width: image.getWidth(),
-	            height: image.getHeight()
-	        });
-	
+	        // if there's an old template layer
+            if ($scope.layer) {
+                // kill old template layer
+                $scope.layer.destroy();
+            } else {
+		        // create new photo layer
+		        $scope.layer = new Kinetic.Layer({
+		            width: image.getWidth(),
+		            height: image.getHeight()
+		        });
+            }
+            	
 	        // create pinch/zoom layer
 	        $scope.group = new Kinetic.PinchLayer({
 	            stage: $scope.stage,
-	            container: layer,
+	            container: $scope.layer,
 	            id: 'group',
 	            draggable: true,
 	            width: image.getWidth(),
-	            height: image.getHeight()
+	            height: image.getHeight(),
+	            x: 0,
+	            y: 0,
 	        });
 	
 	        // enable pinch-zoom
 	        if ($scope.group) $scope.group.dStage.addEventListener("touchmove", $scope.group.layerTouchMove, true);
 	        if ($scope.group) $scope.group.dStage.addEventListener("touchend", $scope.group.layerTouchEnd, true);
 
-	        // add image to group, group to canvas
 	        $scope.group.add(image);
-	        $scope.stage.add(layer);
+	        $scope.stage.add($scope.layer);
 	        $scope.stage.draw();	
 	    };
     };
