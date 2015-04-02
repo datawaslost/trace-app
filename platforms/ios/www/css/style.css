@@ -1,17 +1,22 @@
 
+.trace-container {
+	background-color: #000;	
+}	
+
 #grid {
-	width: 100%;
+	width: 125%;
 	height: 100%;
 	position: absolute;
 	z-index: 100;
-	pointer-events: none
+	pointer-events: none;
+	border: 1px solid #000;
 }
 
 .square {
-	width: 16px;
-	height: 16px;
-	border-bottom: 1px solid #000;
-	border-right: 1px solid #000;
+	min-width: inherit;
+	min-height: inherit;
+	border-bottom: inherit;
+	border-right: inherit;
 	float: left;
 }
 

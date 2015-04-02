@@ -23,5 +23,12 @@
             "url": "https://github.com/wymsee/cordova-imagePicker.git",
             "subdir": "."
         }
+    },
+    "cordova.plugin.Brightness": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/fiscal-cliff/phonegap-plugin-brightness.git",
+            "subdir": "."
+        }
     }
 }

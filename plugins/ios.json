@@ -23,6 +23,20 @@
                         {
                             "xml": "<feature name=\"ImagePicker\"><param name=\"ios-package\" value=\"SOSPicker\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Brightness\"><param name=\"ios-package\" value=\"Brightness\" /></feature>",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "framework": {
+                "parents": {
+                    "UIKit.framework": [
+                        {
+                            "xml": true,
+                            "count": 1
                         }
                     ]
                 }
@@ -40,6 +54,9 @@
             "PACKAGE_NAME": "com.ionicframework.traceapp793000"
         },
         "com.synconset.imagepicker": {
+            "PACKAGE_NAME": "com.ionicframework.traceapp793000"
+        },
+        "cordova.plugin.Brightness": {
             "PACKAGE_NAME": "com.ionicframework.traceapp793000"
         }
     },

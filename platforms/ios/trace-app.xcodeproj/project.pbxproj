@@ -54,6 +54,8 @@
 		B78741C4C5454879BF2A64AA /* ELCAssetTablePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 59A64B5C5D0C427BBC31450A /* ELCAssetTablePicker.xib */; };
 		665438646DD242C789432ED5 /* Overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C0F17BB2534425C95A592EA /* Overlay.png */; };
 		22B70D2D2E864C3BA9F1C9EB /* Overlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7F86A8BF07B74A68953CBE40 /* Overlay@2x.png */; };
+		445EC4F971B046679EC4465E /* Brightness.m in Sources */ = {isa = PBXBuildFile; fileRef = 85C2FD73A0DE45EAA89D200A /* Brightness.m */; };
+		E77A150F191640E1A1B1AFC0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11AD5A3ED3114DCBA3620AA5 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -144,6 +146,9 @@
 		59A64B5C5D0C427BBC31450A /* ELCAssetTablePicker.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = "ELCAssetTablePicker.xib"; path = "ELCAssetTablePicker.xib"; sourceTree = "<group>"; fileEncoding = 4; };
 		3C0F17BB2534425C95A592EA /* Overlay.png */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "Overlay.png"; path = "Overlay.png"; sourceTree = "<group>"; fileEncoding = 4; };
 		7F86A8BF07B74A68953CBE40 /* Overlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "Overlay@2x.png"; path = "Overlay@2x.png"; sourceTree = "<group>"; fileEncoding = 4; };
+		85C2FD73A0DE45EAA89D200A /* Brightness.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Brightness.m"; path = "cordova.plugin.Brightness/Brightness.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		1DDBE78BF34E4DEB97F0B0BB /* Brightness.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Brightness.h"; path = "cordova.plugin.Brightness/Brightness.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		11AD5A3ED3114DCBA3620AA5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "UIKit.framework"; path = "System/Library/Frameworks/UIKit.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,6 +160,7 @@
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
+				E77A150F191640E1A1B1AFC0 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,6 +238,7 @@
 				5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
+				11AD5A3ED3114DCBA3620AA5 /* UIKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -269,6 +276,8 @@
 				C72A14C7D0564A0DAC612E1D /* ELCAssetSelectionDelegate.h */,
 				A9CD69CFA4674495B4902DB9 /* ELCAssetTablePicker.h */,
 				C0EAE0B858AD4414A03098C8 /* ELCImagePickerController.h */,
+				85C2FD73A0DE45EAA89D200A /* Brightness.m */,
+				1DDBE78BF34E4DEB97F0B0BB /* Brightness.h */,
 			);
 			name = Plugins;
 			path = "trace-app/Plugins";
@@ -468,6 +477,7 @@
 				05025B1742B044919C0499F1 /* ELCAssetCell.m in Sources */,
 				4340950A0A6244C694BE2C65 /* ELCAssetTablePicker.m in Sources */,
 				88858679162848589E1DA613 /* ELCImagePickerController.m in Sources */,
+				445EC4F971B046679EC4465E /* Brightness.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

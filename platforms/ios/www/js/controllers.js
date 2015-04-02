@@ -31,21 +31,54 @@ angular.module('trace.controllers', [])
 		$scope.gridPopover.remove();
 		$scope.imagePopover.remove();
 	});
-
-
-	$scope.addGrid = function() {
-
-		$scope.gridPopover.hide();
-		var svg = d3.select("#grid")
-		var amount = 5000;
+		
+	$scope.grid = {}
 	
-		d3.range(amount).forEach(function(j) {
-			var square = svg
-			.append("div")
-			.attr("class", "square")
-		})
+	$scope.grid.showGrid = true;
+	$scope.grid.size = 32;
+
+	$scope.grid.opacity = 50;
+	$scope.grid.hue = 25;
+	$scope.grid.saturation = 10;
+	$scope.grid.lightness = 50;
+		
+	$scope.grid.gridStyle={
+		'border-color':'hsl(0,0,0)',
+		'min-height': $scope.grid.size+'px',
+		'min-width': $scope.grid.size+'px',
+		'opacity': $scope.grid.opacity,
+	};
 	
+
+    $scope.$watch('grid.size', function() {        
+		$scope.grid.gridStyle["min-height"] = $scope.grid.gridStyle["min-width"] = $scope.grid.size + "px";
+    });
+    
+    $scope.$watch('grid.opacity', function() {        
+		$scope.grid.gridStyle["opacity"] = $scope.grid.opacity/100;
+    });
+
+    function hsl() {
+		$scope.grid.gridStyle["border-color"] = 'hsl(' + ( $scope.grid.hue * 360 / 100 ) + ', ' + $scope.grid.saturation + '%,' + $scope.grid.lightness + '%)';
 	}
+
+    $scope.$watch('grid.hue', hsl);    
+    $scope.$watch('grid.saturation', hsl);    
+    $scope.$watch('grid.lightness', hsl);    
+	hsl();
+
+
+
+
+
+	var svg = d3.select("#grid")
+	var amount = 8192;
+
+	d3.range(amount).forEach(function(j) {
+		var square = svg
+		.append("div")
+		.attr("class", "square")
+	})
 		
 	$scope.device_width = $window.innerWidth;
 	$scope.device_scale = $scope.device_width/2560;

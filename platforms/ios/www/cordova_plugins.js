@@ -34,6 +34,13 @@ module.exports = [
         "clobbers": [
             "plugins.imagePicker"
         ]
+    },
+    {
+        "file": "plugins/cordova.plugin.Brightness/www/brightness.js",
+        "id": "cordova.plugin.Brightness.Brightness",
+        "clobbers": [
+            "cordova.plugins.brightness"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -42,7 +49,8 @@ module.exports.metadata =
     "com.ionic.keyboard": "1.0.4",
     "org.apache.cordova.console": "0.2.13",
     "org.apache.cordova.device": "0.3.0",
-    "com.synconset.imagepicker": "1.0.6"
+    "com.synconset.imagepicker": "1.0.6",
+    "cordova.plugin.Brightness": "0.1.0"
 }
 // BOTTOM OF METADATA
 });
