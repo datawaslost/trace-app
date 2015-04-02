@@ -1,0 +1,6 @@
+*~
+*.pyc
+tmp
+.DS_Store
+settings.py
+wsgi.py
