@@ -18,6 +18,12 @@ angular.module('trace.controllers', [])
 		$scope.gridPopover = popover;
 	});
 
+	$ionicPopover.fromTemplateUrl('global-popover.html', {
+		scope: $scope
+	}).then(function(popover) {
+		$scope.globalPopover = popover;
+	});
+
 	$scope.openImagePopover = function($event) {
 		$scope.imagePopover.show($event);
 	};
@@ -25,13 +31,19 @@ angular.module('trace.controllers', [])
 	$scope.openGridPopover = function($event) {
 		$scope.gridPopover.show($event);
 	};
+
+	$scope.openGlobalPopover = function($event) {
+		$scope.globalPopover.show($event);
+	};
 	
 	// Cleanup the popover when we're done with it!
 	$scope.$on('$destroy', function() {
 		$scope.gridPopover.remove();
 		$scope.imagePopover.remove();
+		$scope.globalPopover.remove();
 	});
 		
+	$scope.global = {}
 	$scope.grid = {}
 	
 	$scope.grid.showGrid = true;
@@ -165,3 +177,4 @@ angular.module('trace.controllers', [])
 	$scope.init();
 
 });
+
