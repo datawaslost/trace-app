@@ -10,7 +10,7 @@
 
 	<ion-content has-bouncing="false" scroll="false">
 	
-		<div id="grid" ng-show="grid.showGrid"></div>
+		<div id="grid" ng-show="grid.showGrid" ng-style="grid.gridStyle"></div>
 		
 		<div id="kcontainer"></div>
 		
@@ -51,7 +51,13 @@
 				<ion-toggle ng-model="grid.showGrid">
 					Show Grid			
 		        </ion-toggle>
-				
+
+			  <div class="item range range-positive">
+			    <i class="icon ion-ios7-sunny-outline"></i>
+			    <input type="range" name="volume" min="0" max="100" value="50" ng-model="grid.opacity">
+			    <i class="icon ion-ios7-sunny"></i>
+			  </div>
+			  
 			</ion-list>
 		
 		</ion-content>

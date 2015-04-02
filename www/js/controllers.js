@@ -34,6 +34,20 @@ angular.module('trace.controllers', [])
 		
 	$scope.grid = {}
 	$scope.grid.showGrid = false;
+	$scope.grid.gridStyle={
+		'border-color':'blue',
+		'min-height': '16px',
+		'min-width': '16px',
+		'opacity': 1,
+	};
+	
+	$scope.grid.gridStyle["border-color"] = "red";
+	$scope.grid.opacity = 100;
+    
+    $scope.$watch('grid.opacity', function() {        
+		$scope.grid.gridStyle["opacity"] = $scope.grid.opacity/100;
+    });
+    
 	var svg = d3.select("#grid")
 	var amount = 5000;
 
