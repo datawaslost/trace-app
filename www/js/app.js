@@ -34,7 +34,8 @@ angular.module('trace', ['ionic', 'trace.controllers'])
     url: "/trace",
     views: {
       'menuContent': {
-        templateUrl: "templates/trace.html"
+        templateUrl: "templates/trace.html",
+		controller: 'TraceCtrl'
       }
     }
   })

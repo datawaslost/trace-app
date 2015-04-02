@@ -1,7 +1,62 @@
 <ion-view view-title="Trace">
 	
-	<ion-content>
+	<ion-nav-buttons side="right">
+	
+		<button class="button button-icon button-clear ion-grid" ng-click="openGridPopover($event)"></button>
 
+		<button class="button button-icon button-clear ion-images" ng-click="openImagePopover($event)"></button>
+
+	</ion-nav-buttons>
+
+	<ion-content>
+	
+		<div id="grid"></div>
+		
+		<div id="kcontainer"></div>
+		
 	</ion-content>
 	
 </ion-view>
+
+
+<script id="image-popover.html" type="text/ng-template">
+
+	<ion-popover-view>
+			
+		<ion-content>
+		
+			<ion-list>
+			
+				<ion-item ng-click="addPhoto()">
+					Add Image			
+				</ion-item>
+				
+			</ion-list>
+		
+		</ion-content>
+		
+	</ion-popover-view>
+	
+</script>
+
+
+<script id="grid-popover.html" type="text/ng-template">
+
+	<ion-popover-view>
+			
+		<ion-content>
+		
+			<ion-list>
+			
+				<ion-item ng-click="addGrid()">
+					Add Grid			
+				</ion-item>
+				
+			</ion-list>
+		
+		</ion-content>
+		
+	</ion-popover-view>
+	
+</script>
+
