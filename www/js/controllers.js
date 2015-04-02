@@ -105,7 +105,6 @@ angular.module('trace.controllers', [])
     });
 
     $scope.$watch('image.grayscale', function() {
-	    console.log("yooo");
     	if ($scope.imageKinetic) {
 	    	if ($scope.image.grayscale) {
 				$scope.imageKinetic.filters([Kinetic.Filters.Brighten, Kinetic.Filters.Grayscale]);
@@ -172,8 +171,6 @@ angular.module('trace.controllers', [])
 	        $scope.imageKinetic = new Kinetic.Image({
 	            id: 'photo',
 	            image : $scope.imageObj,
-	            // filter: [ Kinetic.Filters.Brighten ],
-				// filterBrightness: -100
 			});
 	
 	        // if there's an old template layer
@@ -209,17 +206,7 @@ angular.module('trace.controllers', [])
 			$scope.imageKinetic.cache();
 			$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
 			$scope.imageKinetic.brightness(0);
-			// $scope.imageKinetic.setFilter(Kinetic.Filters.RGB);
-			// $scope.imageKinetic.blue(0);
-			// $scope.imageKinetic.red(0);
-			// $scope.imageKinetic.green(0);
-
-
 			$scope.stage.draw();	
-
-
-	        // $scope.layer.batchDraw(); 
-      
 
 	    };
     };
