@@ -36,7 +36,7 @@ angular.module('trace.controllers', [])
 		$scope.globalPopover.show($event);
 	};
 	
-	// Cleanup the popover when we're done with it!
+	// Cleanup the popover when we're done with it
 	$scope.$on('$destroy', function() {
 		$scope.gridPopover.remove();
 		$scope.imagePopover.remove();
@@ -57,6 +57,9 @@ angular.module('trace.controllers', [])
 		}
 		
     });
+
+	// prevent screen sleep by default
+	if ($window.plugins) $cordovaInsomnia.keepAwake();
 
 	// brightness plugin not working
 	/*
