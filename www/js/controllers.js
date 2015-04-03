@@ -73,14 +73,14 @@ angular.module('trace.controllers', [])
 	$scope.grid.lightness = 50;
 		
 	$scope.grid.gridStyle={
-		'border-color':'hsl(0,0,0)',
-		'min-height': $scope.grid.size+'px',
-		'min-width': $scope.grid.size+'px',
 		'opacity': $scope.grid.opacity,
+		'background-size': $scope.grid.size+'px ' + $scope.grid.size+'px',
+		'background-image': 'repeating-linear-gradient(0deg, ' + hsl() + ', ' + hsl() + ' 1px, transparent 1px, transparent ' + $scope.grid.size + 'px),repeating-linear-gradient(-90deg, ' + hsl() + ', ' + hsl() +' 1px, transparent 1px, transparent ' + $scope.grid.size + 'px)'
 	};
 	
     $scope.$watch('grid.size', function() {        
-		$scope.grid.gridStyle["min-height"] = $scope.grid.gridStyle["min-width"] = $scope.grid.size + "px";
+		$scope.grid.gridStyle['background-size'] = $scope.grid.size+'px ' + $scope.grid.size+'px',
+		$scope.grid.gridStyle['background-image'] = 'repeating-linear-gradient(0deg, ' + hsl() + ', ' + hsl() + ' 1px, transparent 1px, transparent ' + $scope.grid.size + 'px),repeating-linear-gradient(-90deg, ' + hsl() + ', ' + hsl() +' 1px, transparent 1px, transparent ' + $scope.grid.size + 'px)'
     });
     
     $scope.$watch('grid.opacity', function() {        
@@ -88,13 +88,17 @@ angular.module('trace.controllers', [])
     });
 
     function hsl() {
-		$scope.grid.gridStyle["border-color"] = 'hsl(' + ( $scope.grid.hue * 360 / 100 ) + ', ' + $scope.grid.saturation + '%,' + $scope.grid.lightness + '%)';
+		return 'hsl(' + ( $scope.grid.hue * 360 / 100 ) + ', ' + $scope.grid.saturation + '%,' + $scope.grid.lightness + '%)';
+	}
+	
+    function updateColor() {
+		$scope.grid.gridStyle["background-image"] = 'repeating-linear-gradient(0deg, ' + hsl() + ', ' + hsl() + ' 1px, transparent 1px, transparent ' + $scope.grid.size + 'px),repeating-linear-gradient(-90deg, ' + hsl() + ', ' + hsl() +' 1px, transparent 1px, transparent ' + $scope.grid.size + 'px)'
 	}
 
-    $scope.$watch('grid.hue', hsl);    
-    $scope.$watch('grid.saturation', hsl);    
-    $scope.$watch('grid.lightness', hsl);    
-	hsl();
+    $scope.$watch('grid.hue', updateColor);    
+    $scope.$watch('grid.saturation', updateColor);    
+    $scope.$watch('grid.lightness', updateColor);    
+	updateColor();
 
 	$scope.image = {}
 	$scope.image.grayscale = false;
@@ -106,7 +110,7 @@ angular.module('trace.controllers', [])
 
     $scope.$watch('image.grayscale', function() {
     	if ($scope.imageKinetic) {
-	    	if ($scope.image.grayscale) {
+	    	if ($scope.image.grayscale == true) {
 				$scope.imageKinetic.filters([Kinetic.Filters.Brighten, Kinetic.Filters.Grayscale]);
 			} else {
 				$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
@@ -114,18 +118,10 @@ angular.module('trace.controllers', [])
 		} 
 		$scope.stage.draw();	
     });
-
-	var svg = d3.select("#grid")
-	var amount = 8192;
-
-	d3.range(amount).forEach(function(j) {
-		var square = svg
-		.append("div")
-		.attr("class", "square")
-	})
-		
+	
+	$scope.image_size = 512;
 	$scope.device_width = $window.innerWidth;
-	$scope.device_scale = $scope.device_width/2560;
+	$scope.device_scale = $scope.device_width / $scope.image_size;
 	$scope.imageObj = new Image();
 
     $scope.init = function() {
@@ -154,8 +150,8 @@ angular.module('trace.controllers', [])
 			        console.log('Error: ' + error);
 			    }, {
 					maximumImagesCount: 1,
-					width: 2560,
-					quality: 100
+					width: $scope.image_size,
+					quality: 70
 				}
 			);
 		} else {

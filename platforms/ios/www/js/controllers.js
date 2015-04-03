@@ -105,9 +105,8 @@ angular.module('trace.controllers', [])
     });
 
     $scope.$watch('image.grayscale', function() {
-	    console.log("yooo");
     	if ($scope.imageKinetic) {
-	    	if ($scope.image.grayscale) {
+	    	if ($scope.image.grayscale == true) {
 				$scope.imageKinetic.filters([Kinetic.Filters.Brighten, Kinetic.Filters.Grayscale]);
 			} else {
 				$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
@@ -117,7 +116,7 @@ angular.module('trace.controllers', [])
     });
 
 	var svg = d3.select("#grid")
-	var amount = 8192;
+	var amount = 4096;
 
 	d3.range(amount).forEach(function(j) {
 		var square = svg
@@ -126,7 +125,7 @@ angular.module('trace.controllers', [])
 	})
 		
 	$scope.device_width = $window.innerWidth;
-	$scope.device_scale = $scope.device_width/2560;
+	$scope.device_scale = $scope.device_width/512;
 	$scope.imageObj = new Image();
 
     $scope.init = function() {
@@ -155,8 +154,8 @@ angular.module('trace.controllers', [])
 			        console.log('Error: ' + error);
 			    }, {
 					maximumImagesCount: 1,
-					width: 2560,
-					quality: 100
+					width: 512,
+					quality: 70
 				}
 			);
 		} else {
@@ -172,8 +171,6 @@ angular.module('trace.controllers', [])
 	        $scope.imageKinetic = new Kinetic.Image({
 	            id: 'photo',
 	            image : $scope.imageObj,
-	            // filter: [ Kinetic.Filters.Brighten ],
-				// filterBrightness: -100
 			});
 	
 	        // if there's an old template layer
@@ -209,17 +206,7 @@ angular.module('trace.controllers', [])
 			$scope.imageKinetic.cache();
 			$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
 			$scope.imageKinetic.brightness(0);
-			// $scope.imageKinetic.setFilter(Kinetic.Filters.RGB);
-			// $scope.imageKinetic.blue(0);
-			// $scope.imageKinetic.red(0);
-			// $scope.imageKinetic.green(0);
-
-
 			$scope.stage.draw();	
-
-
-	        // $scope.layer.batchDraw(); 
-      
 
 	    };
     };

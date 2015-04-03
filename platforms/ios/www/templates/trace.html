@@ -28,10 +28,14 @@
 		<ion-content scroll="false">
 		
 			<ion-list>
-			
-				<ion-item ng-click="addPhoto()">
-					Choose Image			
-				</ion-item>
+				
+				  <ion-item class="item item-button-right" ng-click="addPhoto()">
+				    Choose Image
+				    <button class="button button-positive">
+				      <i class="icon ion-ios-copy"></i>
+				    </button>
+				  </ion-item>
+
 				
 				<ion-toggle ng-model="image.grayscale">
 					Grayscale	
@@ -63,12 +67,13 @@
 					Keep Screen On		
 		        </ion-toggle>
 
+				<!--
 				<ion-item class="item range range-positive">
 					<i class="icon ion-ios-sunny"></i>
 					<input type="range" name="brightness" min="0" max="100" ng-model="global.brightness">
 				</ion-item>
-				
-				
+				-->
+								
 			</ion-list>
 		
 		</ion-content>
