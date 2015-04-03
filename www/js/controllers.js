@@ -4,7 +4,7 @@ angular.module('trace.controllers', [])
 
 })
 
-.controller('TraceCtrl', function($scope, $stateParams, $window, $ionicPopover, $cordovaBrightness) {
+.controller('TraceCtrl', function($scope, $stateParams, $window, $ionicPopover, $ionicPopup, $cordovaBrightness) {
 
 	$ionicPopover.fromTemplateUrl('image-popover.html', {
 		scope: $scope
@@ -45,13 +45,6 @@ angular.module('trace.controllers', [])
 		
 	$scope.global = {}
 	
-    function win(status) {
-        console.log('Message: ' + status);
-    }
-    function fail(status) {
-        console.log('Error: ' + status);
-    }
-
 	// brightness plugin not working
 	/*
 	if ($window.cordova) $scope.global.brightness = $cordovaBrightness.get()
@@ -61,16 +54,13 @@ angular.module('trace.controllers', [])
     });
     */
 
-
 	$scope.grid = {}
-	
 	$scope.grid.showGrid = true;
 	$scope.grid.size = 32;
-
-	$scope.grid.opacity = 50;
-	$scope.grid.hue = 25;
-	$scope.grid.saturation = 10;
-	$scope.grid.lightness = 50;
+	$scope.grid.opacity = 60;
+	$scope.grid.hue = 10;
+	$scope.grid.saturation = 35;
+	$scope.grid.lightness = 75;
 		
 	$scope.grid.gridStyle={
 		'opacity': $scope.grid.opacity,
@@ -161,14 +151,36 @@ angular.module('trace.controllers', [])
 
     };
 
-    $scope.addPhotoFromURL = function() {
-
+	$scope.addPhotoFromURL = function() {
+		 
 		$scope.imagePopover.hide();
-		$scope.imageObj.src = "http://www.leighcox.com/images/design/harmony_full.png";
+		$scope.image.url = "http://www.leighcox.com/images/asap_full.jpg";
+		
+		// An elaborate, custom popup
+		var myPopup = $ionicPopup.show({
+			template: '<input type="url" ng-model="image.url">',
+			title: 'Enter Image URL',
+			// subTitle: 'Please use normal things',
+			scope: $scope,
+			buttons: [
+				{ text: 'Cancel' },
+				{ text: '<b>Load</b>',
+					type: 'button-positive',
+					onTap: function(e) {
+						if (!$scope.image.url) {
+							//don't allow the user to close unless they enter a URL
+							e.preventDefault();
+						} else {
+							$scope.imageObj.src = $scope.image.url;
+						}
+					}
+				}
+			]
+		});
 
-    };
+	};
 
-    // when we get the photo data from camera
+    // when we get the image data from the library or url
     $scope.imageObj.onload = function() {
     
         // create new image object for photo
@@ -212,6 +224,7 @@ angular.module('trace.controllers', [])
 		$scope.imageKinetic.brightness(0);
 		$scope.stage.draw();	
 		
+		// reset color/brightness settings
 		$scope.image.grayscale = true;
 		$scope.image.brightness = 0;
 		
