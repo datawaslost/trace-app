@@ -4,7 +4,7 @@ angular.module('trace.controllers', [])
 
 })
 
-.controller('TraceCtrl', function($scope, $stateParams, $window, $ionicPopover, $ionicPopup, $cordovaBrightness) {
+.controller('TraceCtrl', function($scope, $stateParams, $window, $ionicPopover, $ionicPopup, $cordovaBrightness, $cordovaInsomnia) {
 
 	$ionicPopover.fromTemplateUrl('image-popover.html', {
 		scope: $scope
@@ -44,7 +44,22 @@ angular.module('trace.controllers', [])
 	});
 		
 	$scope.global = {}
+	$scope.global.screen = true;
 	
+    $scope.$watch('global.screen', function() {
+	    
+    	if ($scope.global.screen == false) {
+			// return to standard, allow sleep again
+			if ($window.plugins) $cordovaInsomnia.allowSleepAgain();
+			console.log("allow sleep again");
+		} else {
+			// prevent screen sleep
+			if ($window.plugins) $cordovaInsomnia.keepAwake();
+			console.log("keep awake");
+		}
+		
+    });
+
 	// brightness plugin not working
 	/*
 	if ($window.cordova) $scope.global.brightness = $cordovaBrightness.get()
