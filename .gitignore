@@ -1,6 +1,4 @@
-*~
-*.pyc
-tmp
 .DS_Store
-settings.py
-wsgi.py
+node_modules/
+platforms/
+plugins/
