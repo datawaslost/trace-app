@@ -101,7 +101,7 @@ angular.module('trace.controllers', [])
 	updateColor();
 
 	$scope.image = {}
-	$scope.image.grayscale = false;
+	$scope.image.grayscale = true;
 
     $scope.$watch('image.brightness', function() {       
     	if ($scope.imageKinetic) $scope.imageKinetic.brightness($scope.image.brightness);
@@ -110,7 +110,7 @@ angular.module('trace.controllers', [])
 
     $scope.$watch('image.grayscale', function() {
     	if ($scope.imageKinetic) {
-	    	if ($scope.image.grayscale == true) {
+	    	if ($scope.image.grayscale == false) {
 				$scope.imageKinetic.filters([Kinetic.Filters.Brighten, Kinetic.Filters.Grayscale]);
 			} else {
 				$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
@@ -156,55 +156,65 @@ angular.module('trace.controllers', [])
 			);
 		} else {
 			console.log("no plugin found, loading default image");
-			// $scope.imageObj.src = "img/ionic.png";
-			$scope.imageObj.src = "http://www.leighcox.com/images/design/harmony_full.png";
+			$scope.imageObj.src = "img/ionic.png";
 		}
 
-	    // when we get the photo data from camera
-	    $scope.imageObj.onload = function() {
-	    
-	        // create new image object for photo
-	        $scope.imageKinetic = new Kinetic.Image({
-	            id: 'photo',
-	            image : $scope.imageObj,
-			});
-	
-	        // if there's an old template layer
-            if ($scope.layer) {
-                // kill old template layer
-                $scope.layer.destroy();
-            } else {
-		        // create new photo layer
-		        $scope.layer = new Kinetic.Layer({
-		            width: $scope.imageKinetic.getWidth(),
-		            height: $scope.imageKinetic.getHeight()
-		        });
-            }
-            	
-	        // create pinch/zoom layer
-	        $scope.group = new Kinetic.PinchLayer({
-	            stage: $scope.stage,
-	            container: $scope.layer,
-	            id: 'group',
-	            draggable: true,
+    };
+
+    $scope.addPhotoFromURL = function() {
+
+		$scope.imagePopover.hide();
+		$scope.imageObj.src = "http://www.leighcox.com/images/design/harmony_full.png";
+
+    };
+
+    // when we get the photo data from camera
+    $scope.imageObj.onload = function() {
+    
+        // create new image object for photo
+        $scope.imageKinetic = new Kinetic.Image({
+            id: 'photo',
+            image : $scope.imageObj,
+		});
+
+        // if there's an old template layer
+        if ($scope.layer) {
+            // kill old template layer
+            $scope.layer.destroy();
+        } else {
+	        // create new photo layer
+	        $scope.layer = new Kinetic.Layer({
 	            width: $scope.imageKinetic.getWidth(),
-	            height: $scope.imageKinetic.getHeight(),
-	            x: 0,
-	            y: 0,
+	            height: $scope.imageKinetic.getHeight()
 	        });
-	
-	        // enable pinch-zoom
-	        if ($scope.group) $scope.group.dStage.addEventListener("touchmove", $scope.group.layerTouchMove, true);
-	        if ($scope.group) $scope.group.dStage.addEventListener("touchend", $scope.group.layerTouchEnd, true);
+        }
+        	
+        // create pinch/zoom layer
+        $scope.group = new Kinetic.PinchLayer({
+            stage: $scope.stage,
+            container: $scope.layer,
+            id: 'group',
+            draggable: true,
+            width: $scope.imageKinetic.getWidth(),
+            height: $scope.imageKinetic.getHeight(),
+            x: 0,
+            y: 0,
+        });
 
-	        $scope.group.add($scope.imageKinetic);
-	        $scope.stage.add($scope.layer);
-			$scope.imageKinetic.cache();
-			$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
-			$scope.imageKinetic.brightness(0);
-			$scope.stage.draw();	
+        // enable pinch-zoom
+        if ($scope.group) $scope.group.dStage.addEventListener("touchmove", $scope.group.layerTouchMove, true);
+        if ($scope.group) $scope.group.dStage.addEventListener("touchend", $scope.group.layerTouchEnd, true);
 
-	    };
+        $scope.group.add($scope.imageKinetic);
+        $scope.stage.add($scope.layer);
+		$scope.imageKinetic.cache();
+		$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
+		$scope.imageKinetic.brightness(0);
+		$scope.stage.draw();	
+		
+		$scope.image.grayscale = true;
+		$scope.image.brightness = 0;
+		
     };
 
 	$scope.init();
