@@ -51,11 +51,9 @@ angular.module('trace.controllers', [])
     	if ($scope.global.screen == false) {
 			// return to standard, allow sleep again
 			if ($window.plugins) $cordovaInsomnia.allowSleepAgain();
-			console.log("allow sleep again");
 		} else {
 			// prevent screen sleep
 			if ($window.plugins) $cordovaInsomnia.keepAwake();
-			console.log("keep awake");
 		}
 		
     });
@@ -124,7 +122,7 @@ angular.module('trace.controllers', [])
 		$scope.stage.draw();	
     });
 	
-	$scope.image_size = 512;
+	$scope.image_size = 1024;
 	$scope.device_width = $window.innerWidth;
 	$scope.device_scale = $scope.device_width / $scope.image_size;
 	$scope.imageObj = new Image();
@@ -138,7 +136,7 @@ angular.module('trace.controllers', [])
             height : $scope.device_width,
         });
 
-        $scope.stage.scale({ x: $scope.device_scale, y: $scope.device_scale });
+        // $scope.stage.scale({ x: $scope.device_scale, y: $scope.device_scale });
 
     };
     
@@ -156,7 +154,7 @@ angular.module('trace.controllers', [])
 			    }, {
 					maximumImagesCount: 1,
 					width: $scope.image_size,
-					quality: 70
+					quality: 30
 				}
 			);
 		} else {

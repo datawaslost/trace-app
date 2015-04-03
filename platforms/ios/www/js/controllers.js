@@ -4,7 +4,7 @@ angular.module('trace.controllers', [])
 
 })
 
-.controller('TraceCtrl', function($scope, $stateParams, $window, $ionicPopover, $ionicPopup, $cordovaBrightness) {
+.controller('TraceCtrl', function($scope, $stateParams, $window, $ionicPopover, $ionicPopup, $cordovaBrightness, $cordovaInsomnia) {
 
 	$ionicPopover.fromTemplateUrl('image-popover.html', {
 		scope: $scope
@@ -44,7 +44,20 @@ angular.module('trace.controllers', [])
 	});
 		
 	$scope.global = {}
+	$scope.global.screen = true;
 	
+    $scope.$watch('global.screen', function() {
+	    
+    	if ($scope.global.screen == false) {
+			// return to standard, allow sleep again
+			if ($window.plugins) $cordovaInsomnia.allowSleepAgain();
+		} else {
+			// prevent screen sleep
+			if ($window.plugins) $cordovaInsomnia.keepAwake();
+		}
+		
+    });
+
 	// brightness plugin not working
 	/*
 	if ($window.cordova) $scope.global.brightness = $cordovaBrightness.get()
@@ -109,7 +122,7 @@ angular.module('trace.controllers', [])
 		$scope.stage.draw();	
     });
 	
-	$scope.image_size = 512;
+	$scope.image_size = 1024;
 	$scope.device_width = $window.innerWidth;
 	$scope.device_scale = $scope.device_width / $scope.image_size;
 	$scope.imageObj = new Image();
@@ -123,7 +136,7 @@ angular.module('trace.controllers', [])
             height : $scope.device_width,
         });
 
-        $scope.stage.scale({ x: $scope.device_scale, y: $scope.device_scale });
+        // $scope.stage.scale({ x: $scope.device_scale, y: $scope.device_scale });
 
     };
     
@@ -141,7 +154,7 @@ angular.module('trace.controllers', [])
 			    }, {
 					maximumImagesCount: 1,
 					width: $scope.image_size,
-					quality: 70
+					quality: 30
 				}
 			);
 		} else {
