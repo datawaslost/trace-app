@@ -37,5 +37,12 @@
             "url": "https://github.com/apache/cordova-plugin-console.git",
             "subdir": "."
         }
+    },
+    "nl.x-services.plugins.insomnia": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/EddyVerbruggen/Insomnia-PhoneGap-Plugin.git",
+            "subdir": "."
+        }
     }
 }

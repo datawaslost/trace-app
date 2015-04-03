@@ -4,7 +4,7 @@ angular.module('trace.controllers', [])
 
 })
 
-.controller('TraceCtrl', function($scope, $stateParams, $window, $ionicPopover, $cordovaBrightness) {
+.controller('TraceCtrl', function($scope, $stateParams, $window, $ionicPopover, $ionicPopup, $cordovaBrightness) {
 
 	$ionicPopover.fromTemplateUrl('image-popover.html', {
 		scope: $scope
@@ -45,13 +45,6 @@ angular.module('trace.controllers', [])
 		
 	$scope.global = {}
 	
-    function win(status) {
-        console.log('Message: ' + status);
-    }
-    function fail(status) {
-        console.log('Error: ' + status);
-    }
-
 	// brightness plugin not working
 	/*
 	if ($window.cordova) $scope.global.brightness = $cordovaBrightness.get()
@@ -61,26 +54,23 @@ angular.module('trace.controllers', [])
     });
     */
 
-
 	$scope.grid = {}
-	
 	$scope.grid.showGrid = true;
 	$scope.grid.size = 32;
-
-	$scope.grid.opacity = 50;
-	$scope.grid.hue = 25;
-	$scope.grid.saturation = 10;
-	$scope.grid.lightness = 50;
+	$scope.grid.opacity = 60;
+	$scope.grid.hue = 10;
+	$scope.grid.saturation = 35;
+	$scope.grid.lightness = 75;
 		
 	$scope.grid.gridStyle={
-		'border-color':'hsl(0,0,0)',
-		'min-height': $scope.grid.size+'px',
-		'min-width': $scope.grid.size+'px',
 		'opacity': $scope.grid.opacity,
+		'background-size': $scope.grid.size+'px ' + $scope.grid.size+'px',
+		'background-image': 'repeating-linear-gradient(0deg, ' + hsl() + ', ' + hsl() + ' 1px, transparent 1px, transparent ' + $scope.grid.size + 'px),repeating-linear-gradient(-90deg, ' + hsl() + ', ' + hsl() +' 1px, transparent 1px, transparent ' + $scope.grid.size + 'px)'
 	};
 	
     $scope.$watch('grid.size', function() {        
-		$scope.grid.gridStyle["min-height"] = $scope.grid.gridStyle["min-width"] = $scope.grid.size + "px";
+		$scope.grid.gridStyle['background-size'] = $scope.grid.size+'px ' + $scope.grid.size+'px',
+		$scope.grid.gridStyle['background-image'] = 'repeating-linear-gradient(0deg, ' + hsl() + ', ' + hsl() + ' 1px, transparent 1px, transparent ' + $scope.grid.size + 'px),repeating-linear-gradient(-90deg, ' + hsl() + ', ' + hsl() +' 1px, transparent 1px, transparent ' + $scope.grid.size + 'px)'
     });
     
     $scope.$watch('grid.opacity', function() {        
@@ -88,16 +78,20 @@ angular.module('trace.controllers', [])
     });
 
     function hsl() {
-		$scope.grid.gridStyle["border-color"] = 'hsl(' + ( $scope.grid.hue * 360 / 100 ) + ', ' + $scope.grid.saturation + '%,' + $scope.grid.lightness + '%)';
+		return 'hsl(' + ( $scope.grid.hue * 360 / 100 ) + ', ' + $scope.grid.saturation + '%,' + $scope.grid.lightness + '%)';
+	}
+	
+    function updateColor() {
+		$scope.grid.gridStyle["background-image"] = 'repeating-linear-gradient(0deg, ' + hsl() + ', ' + hsl() + ' 1px, transparent 1px, transparent ' + $scope.grid.size + 'px),repeating-linear-gradient(-90deg, ' + hsl() + ', ' + hsl() +' 1px, transparent 1px, transparent ' + $scope.grid.size + 'px)'
 	}
 
-    $scope.$watch('grid.hue', hsl);    
-    $scope.$watch('grid.saturation', hsl);    
-    $scope.$watch('grid.lightness', hsl);    
-	hsl();
+    $scope.$watch('grid.hue', updateColor);    
+    $scope.$watch('grid.saturation', updateColor);    
+    $scope.$watch('grid.lightness', updateColor);    
+	updateColor();
 
 	$scope.image = {}
-	$scope.image.grayscale = false;
+	$scope.image.grayscale = true;
 
     $scope.$watch('image.brightness', function() {       
     	if ($scope.imageKinetic) $scope.imageKinetic.brightness($scope.image.brightness);
@@ -106,7 +100,7 @@ angular.module('trace.controllers', [])
 
     $scope.$watch('image.grayscale', function() {
     	if ($scope.imageKinetic) {
-	    	if ($scope.image.grayscale == true) {
+	    	if ($scope.image.grayscale == false) {
 				$scope.imageKinetic.filters([Kinetic.Filters.Brighten, Kinetic.Filters.Grayscale]);
 			} else {
 				$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
@@ -114,18 +108,10 @@ angular.module('trace.controllers', [])
 		} 
 		$scope.stage.draw();	
     });
-
-	var svg = d3.select("#grid")
-	var amount = 4096;
-
-	d3.range(amount).forEach(function(j) {
-		var square = svg
-		.append("div")
-		.attr("class", "square")
-	})
-		
+	
+	$scope.image_size = 512;
 	$scope.device_width = $window.innerWidth;
-	$scope.device_scale = $scope.device_width/512;
+	$scope.device_scale = $scope.device_width / $scope.image_size;
 	$scope.imageObj = new Image();
 
     $scope.init = function() {
@@ -154,61 +140,94 @@ angular.module('trace.controllers', [])
 			        console.log('Error: ' + error);
 			    }, {
 					maximumImagesCount: 1,
-					width: 512,
+					width: $scope.image_size,
 					quality: 70
 				}
 			);
 		} else {
 			console.log("no plugin found, loading default image");
-			// $scope.imageObj.src = "img/ionic.png";
-			$scope.imageObj.src = "http://www.leighcox.com/images/design/harmony_full.png";
+			$scope.imageObj.src = "img/ionic.png";
 		}
 
-	    // when we get the photo data from camera
-	    $scope.imageObj.onload = function() {
-	    
-	        // create new image object for photo
-	        $scope.imageKinetic = new Kinetic.Image({
-	            id: 'photo',
-	            image : $scope.imageObj,
-			});
-	
-	        // if there's an old template layer
-            if ($scope.layer) {
-                // kill old template layer
-                $scope.layer.destroy();
-            } else {
-		        // create new photo layer
-		        $scope.layer = new Kinetic.Layer({
-		            width: $scope.imageKinetic.getWidth(),
-		            height: $scope.imageKinetic.getHeight()
-		        });
-            }
-            	
-	        // create pinch/zoom layer
-	        $scope.group = new Kinetic.PinchLayer({
-	            stage: $scope.stage,
-	            container: $scope.layer,
-	            id: 'group',
-	            draggable: true,
+    };
+
+	$scope.addPhotoFromURL = function() {
+		 
+		$scope.imagePopover.hide();
+		$scope.image.url = "http://www.leighcox.com/images/asap_full.jpg";
+		
+		// An elaborate, custom popup
+		var myPopup = $ionicPopup.show({
+			template: '<input type="url" ng-model="image.url">',
+			title: 'Enter Image URL',
+			// subTitle: 'Please use normal things',
+			scope: $scope,
+			buttons: [
+				{ text: 'Cancel' },
+				{ text: '<b>Load</b>',
+					type: 'button-positive',
+					onTap: function(e) {
+						if (!$scope.image.url) {
+							//don't allow the user to close unless they enter a URL
+							e.preventDefault();
+						} else {
+							$scope.imageObj.src = $scope.image.url;
+						}
+					}
+				}
+			]
+		});
+
+	};
+
+    // when we get the image data from the library or url
+    $scope.imageObj.onload = function() {
+    
+        // create new image object for photo
+        $scope.imageKinetic = new Kinetic.Image({
+            id: 'photo',
+            image : $scope.imageObj,
+		});
+
+        // if there's an old template layer
+        if ($scope.layer) {
+            // kill old template layer
+            $scope.layer.destroy();
+        } else {
+	        // create new photo layer
+	        $scope.layer = new Kinetic.Layer({
 	            width: $scope.imageKinetic.getWidth(),
-	            height: $scope.imageKinetic.getHeight(),
-	            x: 0,
-	            y: 0,
+	            height: $scope.imageKinetic.getHeight()
 	        });
-	
-	        // enable pinch-zoom
-	        if ($scope.group) $scope.group.dStage.addEventListener("touchmove", $scope.group.layerTouchMove, true);
-	        if ($scope.group) $scope.group.dStage.addEventListener("touchend", $scope.group.layerTouchEnd, true);
+        }
+        	
+        // create pinch/zoom layer
+        $scope.group = new Kinetic.PinchLayer({
+            stage: $scope.stage,
+            container: $scope.layer,
+            id: 'group',
+            draggable: true,
+            width: $scope.imageKinetic.getWidth(),
+            height: $scope.imageKinetic.getHeight(),
+            x: 0,
+            y: 0,
+        });
 
-	        $scope.group.add($scope.imageKinetic);
-	        $scope.stage.add($scope.layer);
-			$scope.imageKinetic.cache();
-			$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
-			$scope.imageKinetic.brightness(0);
-			$scope.stage.draw();	
+        // enable pinch-zoom
+        if ($scope.group) $scope.group.dStage.addEventListener("touchmove", $scope.group.layerTouchMove, true);
+        if ($scope.group) $scope.group.dStage.addEventListener("touchend", $scope.group.layerTouchEnd, true);
 
-	    };
+        $scope.group.add($scope.imageKinetic);
+        $scope.stage.add($scope.layer);
+		$scope.imageKinetic.cache();
+		$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
+		$scope.imageKinetic.brightness(0);
+		$scope.stage.draw();	
+		
+		// reset color/brightness settings
+		$scope.image.grayscale = true;
+		$scope.image.brightness = 0;
+		
     };
 
 	$scope.init();

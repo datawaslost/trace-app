@@ -41,6 +41,13 @@ module.exports = [
         "clobbers": [
             "device"
         ]
+    },
+    {
+        "file": "plugins/nl.x-services.plugins.insomnia/www/Insomnia.js",
+        "id": "nl.x-services.plugins.insomnia.Insomnia",
+        "clobbers": [
+            "window.plugins.insomnia"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -50,7 +57,8 @@ module.exports.metadata =
     "com.synconset.imagepicker": "1.0.6",
     "cordova-plugin-console": "0.2.14-dev",
     "cordova.plugin.Brightness": "0.1.0",
-    "org.apache.cordova.device": "0.3.0"
+    "org.apache.cordova.device": "0.3.0",
+    "nl.x-services.plugins.insomnia": "4.0.1"
 }
 // BOTTOM OF METADATA
 });

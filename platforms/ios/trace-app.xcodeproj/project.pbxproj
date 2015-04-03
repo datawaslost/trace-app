@@ -56,6 +56,7 @@
 		DB0EBC5D8DE64359880E6995 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC2AF126C57C41988835DC46 /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		F95A873C484A49ECBFB31230 /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E0EB09374D0469F812E389B /* CDVDevice.m */; };
 		FA1FE683A85248739CFCADB9 /* SOSPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E744CE351456E895AF5BF /* SOSPicker.m */; };
+		9DB24268F71649EB8B248693 /* Insomnia.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF6476624B24AFAA1F660D8 /* Insomnia.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,8 @@
 		F7D572A58A474E5D95A23391 /* ELCAssetTablePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ELCAssetTablePicker.xib; sourceTree = "<group>"; };
 		F828E2D729E749B4828B79C9 /* ELCAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ELCAsset.h; path = com.synconset.imagepicker/ELCAsset.h; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "trace-app/config.xml"; sourceTree = "<group>"; };
+		0FF6476624B24AFAA1F660D8 /* Insomnia.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "Insomnia.m"; path = "nl.x-services.plugins.insomnia/Insomnia.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		03247E249C704306A304ACED /* Insomnia.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Insomnia.h"; path = "nl.x-services.plugins.insomnia/Insomnia.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,6 +281,8 @@
 				C1D23DB99A9D4DD691C30FCF /* Brightness.h */,
 				6E0EB09374D0469F812E389B /* CDVDevice.m */,
 				0DB9A73086A1497C90AB736B /* CDVDevice.h */,
+				0FF6476624B24AFAA1F660D8 /* Insomnia.m */,
+				03247E249C704306A304ACED /* Insomnia.h */,
 			);
 			name = Plugins;
 			path = "trace-app/Plugins";
@@ -478,6 +483,7 @@
 				01658CDCA813440A942F08E4 /* CDVLogger.m in Sources */,
 				BCE481FDA4D24D119099A240 /* Brightness.m in Sources */,
 				F95A873C484A49ECBFB31230 /* CDVDevice.m in Sources */,
+				9DB24268F71649EB8B248693 /* Insomnia.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
