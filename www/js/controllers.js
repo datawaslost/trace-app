@@ -4,7 +4,7 @@ angular.module('trace.controllers', [])
 
 })
 
-.controller('TraceCtrl', function($scope, $stateParams, $window, $ionicPopover, $ionicPopup, $cordovaBrightness, $cordovaInsomnia) {
+.controller('TraceCtrl', function($scope, $stateParams, $window, $ionicPopover, $ionicPopup, $cordovaBrightness, $cordovaInsomnia, $timeout) {
 
 	$ionicPopover.fromTemplateUrl('image-popover.html', {
 		scope: $scope
@@ -108,21 +108,41 @@ angular.module('trace.controllers', [])
 
 	$scope.image = {}
 	$scope.image.grayscale = true;
+	$scope.image.drag = true;
 
     $scope.$watch('image.brightness', function() {       
     	if ($scope.imageKinetic) $scope.imageKinetic.brightness($scope.image.brightness);
 		$scope.stage.draw();	
     });
 
-    $scope.$watch('image.grayscale', function() {
-    	if ($scope.imageKinetic) {
-	    	if ($scope.image.grayscale == false) {
-				$scope.imageKinetic.filters([Kinetic.Filters.Brighten, Kinetic.Filters.Grayscale]);
+    $scope.$watch('image.grayscale', function(newValue, oldValue) {
+	    $timeout(function() {
+	    	if ($scope.imageKinetic && $scope.stage) {
+		    	if (newValue == false) {
+					$scope.imageKinetic.filters([Kinetic.Filters.Brighten, Kinetic.Filters.Grayscale]);
+				} else {
+					$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
+				}
+				$scope.imageKinetic.cache();
+				$scope.stage.draw();
+			}
+		}, 0);
+    });
+
+    $scope.$watch('image.drag', function(newValue, oldValue) {
+    	if ($scope.group) {
+	    	if (newValue == false) {
+    	        // disable pinch-zoom
+		        $scope.group.dStage.removeEventListener("touchmove", $scope.group.layerTouchMove, true);
+		        $scope.group.dStage.removeEventListener("touchend", $scope.group.layerTouchEnd, true);
+		        $scope.group.dStage.removeEventListener("touchstart", $scope.group.layerTouchStart, true);
 			} else {
-				$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
+				// enable pinch-zoom
+		        $scope.group.dStage.addEventListener("touchmove", $scope.group.layerTouchMove, true);
+		        $scope.group.dStage.addEventListener("touchend", $scope.group.layerTouchEnd, true);
+		        $scope.group.dStage.addEventListener("touchstart", $scope.group.layerTouchStart, true);
 			}
 		} 
-		$scope.stage.draw();	
     });
 	
 	$scope.image_size = 1024;
@@ -157,7 +177,7 @@ angular.module('trace.controllers', [])
 			    }, {
 					maximumImagesCount: 1,
 					width: $scope.image_size,
-					quality: 30
+					quality: 100
 				}
 			);
 		} else {
@@ -211,10 +231,7 @@ angular.module('trace.controllers', [])
             $scope.layer.destroy();
         } else {
 	        // create new photo layer
-	        $scope.layer = new Kinetic.Layer({
-	            width: $scope.imageKinetic.getWidth(),
-	            height: $scope.imageKinetic.getHeight()
-	        });
+	        $scope.layer = new Kinetic.Layer({ });
         }
         	
         // create pinch/zoom layer
@@ -222,28 +239,32 @@ angular.module('trace.controllers', [])
             stage: $scope.stage,
             container: $scope.layer,
             id: 'group',
-            draggable: true,
-            width: $scope.imageKinetic.getWidth(),
-            height: $scope.imageKinetic.getHeight(),
-            x: 0,
-            y: 0,
+            // draggable: true,
+            // width: $scope.imageKinetic.getWidth(),
+            // height: $scope.imageKinetic.getHeight(),
+            // x: 0,
+            // y: 0,
         });
 
-        // enable pinch-zoom
-        if ($scope.group) $scope.group.dStage.addEventListener("touchmove", $scope.group.layerTouchMove, true);
-        if ($scope.group) $scope.group.dStage.addEventListener("touchend", $scope.group.layerTouchEnd, true);
+        // enable drag & pinch-zoom
+        if ($scope.group) {
+	        $scope.group.dStage.addEventListener("touchmove", $scope.group.layerTouchMove, true);
+			$scope.group.dStage.addEventListener("touchend", $scope.group.layerTouchEnd, true);
+			$scope.group.dStage.addEventListener("touchstart", $scope.group.layerTouchStart, true);
+		}
 
         $scope.group.add($scope.imageKinetic);
         $scope.stage.add($scope.layer);
-		$scope.imageKinetic.cache();
+		// $scope.imageKinetic.cache();
 		$scope.imageKinetic.filters([Kinetic.Filters.Brighten]);
 		$scope.imageKinetic.brightness(0);
+		$scope.imageKinetic.cache();
 		$scope.stage.draw();	
 		
 		// reset color/brightness settings
 		$scope.image.grayscale = true;
+		$scope.image.drag = true;
 		$scope.image.brightness = 0;
-		
     };
 
 	$scope.init();

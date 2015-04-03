@@ -24,13 +24,16 @@ Kinetic.PinchLayer = function(config) {
 	// self.dStage.addEventListener("touchmove", self.layerTouchMove, true);
 	// self.dStage.addEventListener("touchend", self.layerTouchEnd, true);	
 
-	self.setDraggable(true);    
+	// self.setDraggable(true);    
 	self.startDistance = undefined;
 	self.startScale = 1;
 	self.lastPosition = { x: 0, y: 0 }
 	self.touchPosition = { x: 0, y: 0 }
 	self.layerPosition = { x: 0, y: 0 }
 	self.panDelta = { x: 0, y: 0 }
+	
+	self.startPosition = {x:0,y:0};
+	
 }
 
 Kinetic.PinchLayer.prototype = new Kinetic.Group();
@@ -68,7 +71,7 @@ Kinetic.PinchLayer.prototype.layerTouchMove = function(event) {
 	
 	var touch1 = event.touches[0];
 	var touch2 = event.touches[1];
- 	
+
  	if (touch1 && touch2) {
     	self.setDraggable(false);
     	if (self.trans != undefined) { self.trans.stop(); }
@@ -86,9 +89,9 @@ Kinetic.PinchLayer.prototype.layerTouchMove = function(event) {
 			self.scale({ x: scale, y: scale });
 			
 			// adjust position after scale			
-			var x = (self.layerPosition.x * scale) - self.touchPosition.x;
-			var y = (self.layerPosition.y * scale) - self.touchPosition.y;
-			var pos = self.checkBounds({ x: -x, y: -y });
+			// var x = (self.layerPosition.x * scale) - self.touchPosition.x;
+			// var y = (self.layerPosition.y * scale) - self.touchPosition.y;
+			// var pos = self.checkBounds({ x: -x, y: -y });
 			// var pos = self.checkBounds({ x: x, y: y });
 			// var pos = { x: -x, y: -y };
 			// var pos = { x: x, y: y };
@@ -96,14 +99,34 @@ Kinetic.PinchLayer.prototype.layerTouchMove = function(event) {
 			// self.y(pos.y);
 			self.getParent().draw();
     	}
+	} else if (touch1) {
+
+		// just drag
+		
+		offset = {};
+		offset.x = self.startPosition.x - touch1.pageX;
+		offset.y = self.startPosition.y - touch1.pageY;
+		
+		self.x(self.lastPosition.x-offset.x);
+		self.y(self.lastPosition.y-offset.y);
+
+		self.getParent().draw();
+				
 	}
+	
 }
 		
 Kinetic.PinchLayer.prototype.layerTouchEnd = function(event) {
-   	self.setDraggable(true);
+   	// self.setDraggable(true);
     self.startDistance = undefined;
     self.dragDistance = undefined;
     self.startScale = self.getScale().x;
 }
+
+Kinetic.PinchLayer.prototype.layerTouchStart = function(event) {
+	self.startPosition = { x: event.touches[0].pageX, y: event.touches[0].pageY };
+	self.lastPosition = { x: self.getX(), y: self.getY() };
+}
+
 
 

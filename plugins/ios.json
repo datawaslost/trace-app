@@ -25,11 +25,11 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "xml": "<feature name=\"Insomnia\"><param name=\"ios-package\" value=\"Insomnia\" /></feature>",
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Insomnia\"><param name=\"ios-package\" value=\"Insomnia\" /></feature>",
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -60,10 +60,10 @@
         "cordova.plugin.Brightness": {
             "PACKAGE_NAME": "com.ionicframework.traceapp793000"
         },
-        "org.apache.cordova.device": {
+        "nl.x-services.plugins.insomnia": {
             "PACKAGE_NAME": "com.ionicframework.traceapp793000"
         },
-        "nl.x-services.plugins.insomnia": {
+        "org.apache.cordova.device": {
             "PACKAGE_NAME": "com.ionicframework.traceapp793000"
         }
     },

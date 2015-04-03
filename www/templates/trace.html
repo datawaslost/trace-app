@@ -23,7 +23,7 @@
 
 <script id="image-popover.html" type="text/ng-template">
 
-	<ion-popover-view>
+	<ion-popover-view style="height: 300px">
 			
 		<ion-content scroll="false">
 		
@@ -40,14 +40,18 @@
 					</div>
 				</ion-item>
 				
-				<ion-toggle ng-model="image.grayscale">
-					Color
-		        </ion-toggle>
-
 				<ion-item class="item range range-positive">
 					<i class="icon ion-ios-sunny"></i>
 					<input type="range" name="brightness" min="-1" max="1"  step="0.05" ng-model="image.brightness">
 				</ion-item>
+
+				<ion-toggle ng-model="image.grayscale">
+					Color
+		        </ion-toggle>
+
+				<ion-toggle ng-model="image.drag">
+					Drag & Zoom
+		        </ion-toggle>
 
 			</ion-list>
 		
@@ -60,7 +64,7 @@
 
 <script id="global-popover.html" type="text/ng-template">
 
-	<ion-popover-view>
+	<ion-popover-view style="height: 70px">
 			
 		<ion-content scroll="false">
 		
@@ -88,7 +92,7 @@
 
 <script id="grid-popover.html" type="text/ng-template">
 
-	<ion-popover-view style="height: 400px">
+	<ion-popover-view style="height: 360px">
 			
 		<ion-content scroll="false">
 		
@@ -100,7 +104,7 @@
 
 				<ion-item class="item range range-positive">
 					<i class="icon ion-grid"></i>
-					<input type="range" name="size" min="8" max="320" ng-model="grid.size">
+					<input type="range" name="size" min="8" max="256" ng-model="grid.size">
 				</ion-item>
 				
 				<ion-item class="item range range-positive">
